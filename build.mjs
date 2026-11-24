@@ -8,7 +8,9 @@ import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
 const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
-const MIRROR = 'E:/deepseek/mirror';
+// 资源根：默认用仓库自带的 site/，可用 --site=<dir> 覆盖
+const SITE_ARG = (process.argv.find(a => a.startsWith('--site=')) || '').split('=')[1];
+const MIRROR = SITE_ARG || path.join(HERE, 'site');
 const DIST = path.join(HERE, 'dist');
 const WITH_OGG = process.argv.includes('--with-ogg');
 const CHUNK = 60 * 1024 * 1024;          // 每个 pack 片 60MB

@@ -1,3 +1,4 @@
+# site/ 是随仓库发布的资源，不要忽略
 dist/
 build/
 rt/

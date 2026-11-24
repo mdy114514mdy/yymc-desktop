@@ -33,17 +33,19 @@ node build.mjs --dist-only  # 只生成 dist/ 资源包，便于先验服务器
 
 `build.mjs` 做三件事：收集 `../mirror/` 下的入口页、游戏本体、`js/chunk_worker.js`、`game/sounds/sfx/**/*.m4a` → 打成 `dist/pack<N>.bin`（每片 60 MB）+ `dist/index.json`（路径→片号/偏移/长度/MIME）→ `node --experimental-sea-config` 出 blob、复制 `node.exe`、用 `postject` 注入 `NODE_SEA_BLOB`。
 
-## 需要自备
+## 资源随仓库一起来
 
-仓库不含游戏本体与音效（第三方内容，几十 MB）。构建前请准备：
+`site/` 目录里就是构建要用的全部资源，克隆下来即可直接编译（约 148 MB，其中音效 89 MB 是 4849 个 `.m4a`）：
 
 ```
-mirror/index.html
-mirror/favicon.svg
-mirror/game/OpusMC.v6.html
-mirror/game/js/chunk_worker.js
-mirror/game/sounds/sfx/**/*.m4a
+site/index.html
+site/favicon.svg
+site/game/OpusMC.v6.html          （48.5 MB 单文件游戏）
+site/game/js/chunk_worker.js      （11 MB 区块 worker）
+site/game/sounds/sfx/**/*.m4a     （4849 个音效）
 ```
+
+换别的资源目录用 `node build.mjs --site=/path/to/site`。
 
 ## 说明
 
