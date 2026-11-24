@@ -1,0 +1,12 @@
+dist/
+build/
+rt/
+assets/
+node_modules/
+*.exe
+*.apk
+*.apk.idsig
+*.blob
+*.keystore
+*.log
+sea-config.json
