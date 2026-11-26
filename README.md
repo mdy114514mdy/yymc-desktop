@@ -6,8 +6,9 @@
 
 | 版本 | 文件 | 大小 | 直链 |
 |---|---|---|---|
-| v1.0.0 | `YYMC.exe` | 237.9 MB | https://github.com/mdy114514mdy/yymc-desktop/releases/download/v1.0.0/YYMC.exe |
-| v1.0.0 | 整页 | — | https://github.com/mdy114514mdy/yymc-desktop/releases/tag/v1.0.0 |
+| **v1.0.1** | `YYMC.exe` | 238.9 MB | https://github.com/mdy114514mdy/yymc-desktop/releases/download/v1.0.1/YYMC.exe |
+| v1.0.1 | 整页（含更新记录） | — | https://github.com/mdy114514mdy/yymc-desktop/releases/tag/v1.0.1 |
+| v1.0.0 | `YYMC.exe`（旧版） | 237.9 MB | https://github.com/mdy114514mdy/yymc-desktop/releases/download/v1.0.0/YYMC.exe |
 
 资源随仓库发布（`site/`，148 MB），克隆下来即可从零编译出成品。
 
@@ -56,7 +57,14 @@ curl -s -r 0-1023 -o NUL -w "%{http_code}\n" http://127.0.0.1:8099/game/OpusMC.v
 
 官方房间服务只接受 `Origin: https://www.bilibili.com`。`Origin` 是浏览器的 forbidden header：页面 JS 改不了，WebSocket 握手没有可写 header 的入口，Service Worker 也拦不住。所以必须有人在浏览器之外补上——网页版只能由服务端补，而这个 exe 选择**由你本机补**：`/rooms/*` 的 HTTP 与 WebSocket 都在本进程补 Origin，建链之后的游戏流量走服务端下发的 TURN，不经过本进程。
 
-## 五、常见问题
+## 五、更新记录
+
+| 版本 | 变化 |
+|---|---|
+| **v1.0.1** | **修区块"永久毒化"**：看门狗把 20 秒无应答的区块记进毒名单后永久跳过（主线程也跳过），那块永远不建网格 → 能看穿地面看到洞穴。改为：识别页面停顿（间隔 >2.5 s 重置心跳）· 毒名单按 2/4/8/16/32 s 退避重试（最多 4 次）· 建成即清除 · 重启上限 3→8 · 退避用尽补空块 |
+| v1.0.0 | 首个单文件版 |
+
+## 六、常见问题
 
 | 现象 | 处理 |
 |---|---|
